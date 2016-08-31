@@ -87,7 +87,7 @@ public class ChatClient extends JFrame
 		username = clientName;
 		try
 		{
-			client = new Socket("86.124.150.27", 8888);
+			client = new Socket("localhost", 8888);
 			clientInput = new DataInputStream(client.getInputStream());
 			clientOutput = new DataOutputStream(client.getOutputStream());
 			initChatFrameCharacteristics(username);
