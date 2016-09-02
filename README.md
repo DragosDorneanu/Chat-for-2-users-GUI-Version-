@@ -5,6 +5,6 @@ Simple chat for 2 users.
 - Each client will communicate with a server
      - client sends a message to server and the server sends it to the other client
      - the "signal" to send messages are the ENTER key and a "Send" button
-     - the recieve messages problem is managed by an instance of RecieveMessageThread class ( if a message exists for reading then it will be readed while the app/thread is on )
+     - the recieve messages problem is managed by an instance of RecieveMessageThread class ( if a message exists for reading then it will be read while the app/thread is on )
 
 Possible updates may come up ...
