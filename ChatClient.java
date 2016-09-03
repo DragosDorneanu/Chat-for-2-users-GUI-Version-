@@ -21,7 +21,7 @@ public class ChatClient extends JFrame
 	private static JTextArea messageSpot;
 	private Panel messageWritingArea;
 	private Button send;
-	private JScrollPane scroll;
+	private JScrollPane conversationScroll, messageSpotScroll;
 	
 	public static JTextArea getMessageSpot() {
 		return messageSpot;
@@ -39,16 +39,17 @@ public class ChatClient extends JFrame
 		Font conversationFont = new Font("Dornilian Conversation", Font.LAYOUT_LEFT_TO_RIGHT, 20);
 		conversation.setFont(conversationFont);
 		conversation.setEditable(false);
-		scroll = new JScrollPane(conversation);
-		this.add(scroll, BorderLayout.NORTH);
+		conversationScroll = new JScrollPane(conversation);
+		this.add(conversationScroll, BorderLayout.NORTH);
 	}
 	
 	private void initMessageSpot()
 	{
-		messageSpot = new JTextArea(5, 50);
+		messageSpot = new JTextArea(3, 60);
 		Font messageFont = new Font("Dornilian Message", Font.LAYOUT_RIGHT_TO_LEFT, 15);
 		messageSpot.setFont(messageFont);
 		messageSpot.addKeyListener(new SendButtonAndMessageTextListener(conversation, clientOutput, username));
+		messageSpotScroll = new JScrollPane(messageSpot);
 	}
 	
 	private void initSendMessageButton()
@@ -62,7 +63,7 @@ public class ChatClient extends JFrame
 	{
 		messageWritingArea = new Panel();
 		messageWritingArea.setLayout(new BorderLayout());
-		messageWritingArea.add(messageSpot, BorderLayout.WEST);
+		messageWritingArea.add(messageSpotScroll, BorderLayout.WEST);
 		messageWritingArea.add(send);
 		this.add(messageWritingArea, BorderLayout.SOUTH);
 		messageSpot.requestFocusInWindow();
@@ -75,6 +76,7 @@ public class ChatClient extends JFrame
 		this.setBounds(100, 100, 600, 500);
 		this.setTitle("Chat : user " + username);
 		this.setResizable(false);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		initConversationArea();
 		initMessageSpot();
 		initSendMessageButton();

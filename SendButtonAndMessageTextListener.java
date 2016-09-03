@@ -40,13 +40,14 @@ public class SendButtonAndMessageTextListener implements KeyListener, ActionList
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
-		if(e.getKeyChar() == KeyEvent.VK_ENTER)
+		if(e.getKeyChar() == KeyEvent.VK_ENTER && !e.isShiftDown())
 		{
 			JTextArea messageArea = ChatClient.getMessageSpot();
-			if(messageArea.getText().length() - 1 > 0)
+			if(messageArea.getText().length() > 0)
 			{
 				sendMessage(messageArea);
 				messageArea.setCaretPosition(0);
+				messageArea.setText("");
 			}
 		}
 	}
@@ -55,7 +56,18 @@ public class SendButtonAndMessageTextListener implements KeyListener, ActionList
 	public void keyReleased(KeyEvent e) { }
 
 	@Override
-	public void keyTyped(KeyEvent e) { }
+	public void keyTyped(KeyEvent e) 
+	{
+		if(e.getKeyChar() == KeyEvent.VK_ENTER)
+		{
+			JTextArea messageArea = ChatClient.getMessageSpot();
+			String messageAreaText = messageArea.getText();
+			if(!e.isShiftDown())
+				messageArea.setText(messageAreaText.substring(0, messageAreaText.length() - 1));
+			else 
+				messageArea.setText(messageAreaText + '\n');
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -63,11 +75,8 @@ public class SendButtonAndMessageTextListener implements KeyListener, ActionList
 		if(ChatClient.getMessageSpot().getText().length() > 0)
 		{
 			JTextArea messageArea = ChatClient.getMessageSpot();
-			if(messageArea.getText().length() - 1 > 0)
-			{
-				sendMessage(messageArea);
-				messageArea.setCaretPosition(0);
-			}
+			sendMessage(messageArea);
+			messageArea.setCaretPosition(0);
 		}
 	}
 }
